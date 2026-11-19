@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="it" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TechLab PC - Architettura, Build e Calcolatore Hardware</title>
+
+  <!-- Favicon personalizzata (icona nella scheda del browser) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🖥️</text></svg>">
+
+  <!-- Meta Tag Open Graph (anteprima link su WhatsApp/Discord) -->
+  <meta property="og:title" content="TechLab PC - Guida Hardware e Migliori Combo">
+  <meta property="og:description" content="Scopri come funziona un PC, fai il test per la build ideale, calcola budget e bottleneck.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=1200">
+
+  <!-- Bootstrap 5.3 CSS & Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+  <style>
+    :root {
+      --colore-primario: #0d6efd;
+      --colore-ciano: #0dcaf0;
+      --sfondo-hero: rgba(15, 23, 42, 0.8);
+      --transizione-fluida: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Navbar con effetto Glassmorphism */
+    .navbar-glass {
+      background-color: rgba(15, 23, 42, 0.85) !important;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .navbar-nav .nav-link {
+      transition: color 0.3s ease;
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: var(--colore-ciano) !important;
+    }
+
+    /* Copertina Hero con effetto parallasse */
+    .hero {
+      min-height: 82vh;
+      background: linear-gradient(var(--sfondo-hero), rgba(15, 23, 42, 0.9)),
+                  url('https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    /* Barra decorativa sotto i titoli delle sezioni */
+    section h2 {
+      position: relative;
+      padding-bottom: 12px;
+    }
+
+    section h2::after {
+      content: "";
+      position: absolute;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--colore-primario), var(--colore-ciano));
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+
+    /* Card interattive */
+    .mia-scheda {
+      border-radius: 14px;
+      overflow: hidden;
+      transition: var(--transizione-fluida);
+    }
+
+    .mia-scheda:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(13, 110, 253, 0.15) !important;
+    }
+
+    /* Termini tecnici con Tooltip */
+    .termine-tecnico {
+      border-bottom: 2px dashed var(--colore-ciano);
+      cursor: help;
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+
+    .termine-tecnico:hover {
+      color: var(--colore-ciano);
+    }
+
+    /* Micro-animazione sui pulsanti */
+    .btn {
+      border-radius: 8px;
+      transition: var(--transizione-fluida);
+    }
+
+    .btn:active {
+      transform: scale(0.96);
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        min-height: 70vh;
+        background-attachment: scroll;
+      }
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =====================================================================
+       1. NAVBAR CON GLASSMORPHISM E DARK MODE
+       ===================================================================== -->
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-glass sticky-top shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold text-info" href="#">
+        <i class="bi bi-cpu-fill me-2"></i>TechLab PC
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipale">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="menuPrincipale">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="#componenti">Componenti</a></li>
+          <li class="nav-item"><a class="nav-link" href="#quiz-pc">Test Build</a></li>
+          <li class="nav-item"><a class="nav-link" href="#configurazioni">Configurazioni</a></li>
+          <li class="nav-item"><a class="nav-link" href="#calcolatore">Calcolatore</a></li>
+          <li class="nav-item"><a class="nav-link" href="#miei-componenti">I miei componenti</a></li>
+          <li class="nav-item"><a class="nav-link" href="#errori">Consigli</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contatti">Contatti</a></li>
+          <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+            <button id="btnTema" class="btn btn-outline-info btn-sm">
+              <i class="bi bi-moon-stars-fill"></i> Tema Scuro
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- =====================================================================
+       2. COPERTINA HERO
+       ===================================================================== -->
+  <header class="hero d-flex align-items-center text-center text-white">
+    <div class="container">
+      <span class="badge bg-info text-dark fw-bold mb-3 px-3 py-2">HARDWARE &amp; PC BUILDING</span>
+      <h1 class="display-3 fw-bold mb-3">Come funziona davvero un PC</h1>
+      <p class="lead mb-4 mx-auto" style="max-width: 700px;">
+        Dalla teoria dei singoli componenti fino alle migliori build da assemblare, senza cadere nel 
+        <span class="termine-tecnico text-info" data-bs-toggle="tooltip" title="Quando un componente troppo lento limita le prestazioni di uno molto più potente.">bottleneck</span>.
+      </p>
+      <div class="d-flex justify-content-center gap-3 flex-wrap">
+        <a href="#componenti" class="btn btn-info btn-lg fw-bold">Inizia la guida</a>
+        <a href="#quiz-pc" class="btn btn-outline-light btn-lg">Trova la tua Build</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- =====================================================================
+         3. I COMPONENTI PRINCIPALI
+         ===================================================================== -->
+    <section id="componenti" class="py-5">
+      <div class="container">
+        <h2 class="text-center mb-5 fw-bold">I Componenti Principali</h2>
+        
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm mia-scheda">
+              <div class="card-body">
+                <h3 class="h5 fw-bold text-primary"><i class="bi bi-cpu me-2"></i>1. Il Processore (CPU)</h3>
+                <p class="card-text">
+                  È il <strong>cervello</strong> del computer. Riceve le istruzioni dai programmi, esegue miliardi di calcoli al secondo e coordina gli altri componenti. Le prestazioni dipendono dal numero di <strong>core</strong> e dalla frequenza in <strong>GHz</strong>.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm mia-scheda">
+              <div class="card-body">
+                <h3 class="h5 fw-bold text-primary"><i class="bi bi-memory me-2"></i>2. La Memoria RAM</h3>
+                <p class="card-text">
+                  È la <strong>memoria di lavoro</strong> temporanea e velocissima. Conserva i dati dei programmi aperti in quel momento per passarli subito alla CPU. Essendo volatile, si svuota quando spegni il PC.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm mia-scheda">
+              <div class="card-body">
+                <h3 class="h5 fw-bold text-primary"><i class="bi bi-gpu-card me-2"></i>3. La Scheda Video (GPU)</h3>
+                <p class="card-text">
+                  Trasforma i calcoli binari in <strong>immagini sullo schermo</strong>. È progettata per migliaia di calcoli paralleli: indispensabile per il gaming 3D, il <span class="termine-tecnico" data-bs-toggle="tooltip" title="Tecnologia che simula il comportamento reale della luce nei videogiochi.">Ray Tracing</span> e l'Intelligenza Artificiale.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         4. QUIZ INTERATTIVO: CHE PC FA PER TE?
+         ===================================================================== -->
+    <section id="quiz-pc" class="py-5 bg-body-tertiary">
+      <div class="container">
+        <h2 class="text-center mb-3 fw-bold">Non sai quale scegliere? Fai il Test</h2>
+        <p class="text-center text-muted mb-5">Rispondi a due domande rapide per scoprire la build perfetta per te</p>
+
+        <div class="row justify-content-center">
+          <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm p-4 mia-scheda">
+              <div class="mb-3">
+                <label for="quizBudget" class="form-label fw-bold">1. Qual è il tuo budget massimo?</label>
+                <select id="quizBudget" class="form-select">
+                  <option value="basso">Intorno ai 900€ - 1.000€</option>
+                  <option value="medio">Intorno ai 1.500€</option>
+                  <option value="alto">Oltre 2.000€ (senza compromessi)</option>
+                </select>
+              </div>
+
+              <div class="mb-4">
+                <label for="quizUso" class="form-label fw-bold">2. A che risoluzione giocherai o lavorerai?</label>
+                <select id="quizUso" class="form-select">
+                  <option value="1080p">Full HD (1080p) / Studio e Università</option>
+                  <option value="1440p">2K (1440p) ad alto refresh rate</option>
+                  <option value="4k">4K Ultra / Montaggio Video / AI</option>
+                </select>
+              </div>
+
+              <button class="btn btn-primary w-100 fw-bold mb-3" onclick="trovaBuildIdeale()">
+                <i class="bi bi-magic me-2"></i>Scopri la mia Build
+              </button>
+
+              <div id="risultatoQuiz" class="alert alert-success d-none mb-0 text-center"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         5. LE 3 COMBO CONSIGLIATE AFFIANCATE + BARRE FPS
+         ===================================================================== -->
+    <section id="configurazioni" class="py-5">
+      <div class="container">
+        <h2 class="text-center mb-5 fw-bold">Le Mie Combo Consigliate</h2>
+
+        <div class="row g-4">
+          <!-- COMBO 1 -->
+          <div class="col-lg-4">
+            <div class="card h-100 shadow-sm mia-scheda">
+              <div class="card-header bg-dark text-white fw-bold d-flex justify-content-between">
+                <span>Combo Studio &amp; 1080p</span>
+                <span class="badge bg-secondary">~900€</span>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <ul>
+                  <li><strong>CPU:</strong> AMD Ryzen 5 7600</li>
+                  <li><strong>GPU:</strong> NVIDIA RTX 4060</li>
+                  <li><strong>RAM:</strong> 16 GB DDR5</li>
+                </ul>
+
+                <div class="mb-3 mt-auto">
+                  <small class="text-muted fw-bold">Prestazioni Gaming Full HD:</small>
+                  <div class="progress mt-1" style="height: 20px;">
+                    <div class="progress-bar bg-success" style="width: 65%;">120+ FPS</div>
+                  </div>
+                </div>
+
+                <div class="d-flex flex-wrap gap-2">
+                  <a href="https://www.amazon.it/s?k=AMD+Ryzen+5+7600" target="_blank" rel="noopener" class="btn btn-primary btn-sm">CPU</a>
+                  <a href="https://www.amazon.it/s?k=NVIDIA+RTX+4060" target="_blank" rel="noopener" class="btn btn-primary btn-sm">GPU</a>
+                  <a href="https://www.amazon.it/s?k=16+GB+DDR5" target="_blank" rel="noopener" class="btn btn-primary btn-sm">RAM</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- COMBO 2 -->
+          <div class="col-lg-4">
+            <div class="card h-100 shadow-sm border-primary mia-scheda">
+              <div class="card-header bg-primary text-white fw-bold d-flex justify-content-between">
+                <span>Combo Gaming 2K</span>
+                <span class="badge bg-light text-dark">~1.500€</span>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <ul>
+                  <li><strong>CPU:</strong> AMD Ryzen 7 9700X</li>
+                  <li><strong>GPU:</strong> NVIDIA RTX 5060 Ti</li>
+                  <li><strong>RAM:</strong> 32 GB DDR5</li>
+                </ul>
+
+                <div class="mb-3 mt-auto">
+                  <small class="text-muted fw-bold">Prestazioni Gaming 1440p:</small>
+                  <div class="progress mt-1" style="height: 20px;">
+                    <div class="progress-bar bg-primary" style="width: 85%;">165+ FPS</div>
+                  </div>
+                </div>
+
+                <div class="d-flex flex-wrap gap-2">
+                  <a href="https://www.amazon.it/s?k=AMD+Ryzen+7+9700X" target="_blank" rel="noopener" class="btn btn-primary btn-sm">CPU</a>
+                  <a href="https://www.amazon.it/s?k=NVIDIA+RTX+5060+Ti" target="_blank" rel="noopener" class="btn btn-primary btn-sm">GPU</a>
+                  <a href="https://www.amazon.it/s?k=32+GB+DDR5" target="_blank" rel="noopener" class="btn btn-primary btn-sm">RAM</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- COMBO 3 -->
+          <div class="col-lg-4">
+            <div class="card h-100 shadow-sm mia-scheda">
+              <div class="card-header bg-dark text-warning fw-bold d-flex justify-content-between">
+                <span>Combo Top 4K &amp; AI</span>
+                <span class="badge bg-warning text-dark">~2.400€</span>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <ul>
+                  <li><strong>CPU:</strong> AMD Ryzen 7 9800X3D</li>
+                  <li><strong>GPU:</strong> NVIDIA RTX 5080</li>
+                  <li><strong>RAM:</strong> 64 GB DDR5</li>
+                </ul>
+
+                <div class="mb-3 mt-auto">
+                  <small class="text-muted fw-bold">Prestazioni Gaming 4K Ultra:</small>
+                  <div class="progress mt-1" style="height: 20px;">
+                    <div class="progress-bar bg-warning text-dark fw-bold" style="width: 100%;">MAX FPS</div>
+                  </div>
+                </div>
+
+                <div class="d-flex flex-wrap gap-2">
+                  <a href="https://www.amazon.it/s?k=AMD+Ryzen+7+9800X3D" target="_blank" rel="noopener" class="btn btn-primary btn-sm">CPU</a>
+                  <a href="https://www.amazon.it/s?k=NVIDIA+RTX+5080" target="_blank" rel="noopener" class="btn btn-primary btn-sm">GPU</a>
+                  <a href="https://www.amazon.it/s?k=64+GB+DDR5" target="_blank" rel="noopener" class="btn btn-primary btn-sm">RAM</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         6. CALCOLATORE PREZZO, WATT & SIMULATORE BOTTLENECK
+         ===================================================================== -->
+    <section id="calcolatore" class="py-5 bg-body-tertiary">
+      <div class="container">
+        <h2 class="text-center mb-3 fw-bold">Calcolatore Build, Watt &amp; Bottleneck</h2>
+        <p class="text-center text-muted mb-5">Seleziona CPU e GPU per stimare il costo totale, i Watt necessari e verificare l'equilibrio della build</p>
+
+        <div class="row justify-content-center">
+          <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm p-4 mia-scheda">
+              <div class="mb-3">
+                <label for="selectCpu" class="form-label fw-bold">Scegli il Processore (CPU):</label>
+                <select id="selectCpu" class="form-select" onchange="calcolaBuild()">
+                  <option value="190" data-watt="65">AMD Ryzen 5 7600 (~190€ - 65W)</option>
+                  <option value="320" data-watt="105">AMD Ryzen 7 9700X (~320€ - 105W)</option>
+                  <option value="480" data-watt="120">AMD Ryzen 7 9800X3D (~480€ - 120W)</option>
+                </select>
+              </div>
+
+              <div class="mb-4">
+                <label for="selectGpu" class="form-label fw-bold">Scegli la Scheda Video (GPU):</label>
+                <select id="selectGpu" class="form-select" onchange="calcolaBuild()">
+                  <option value="310" data-watt="115">NVIDIA RTX 4060 (~310€ - 115W)</option>
+                  <option value="460" data-watt="180">NVIDIA RTX 5060 Ti (~460€ - 180W)</option>
+                  <option value="1150" data-watt="360">NVIDIA RTX 5080 (~1150€ - 360W)</option>
+                </select>
+              </div>
+
+              <div class="alert alert-info mb-0 text-center">
+                <h4 class="alert-heading h5 fw-bold">Risultato Stimato:</h4>
+                <p class="mb-1 fs-5">Prezzo PC Completo: <strong id="risultatoPrezzo">850 €</strong></p>
+                <p class="mb-2">Alimentatore consigliato: <strong id="risultatoWatt">550W / 650W</strong></p>
+                <hr class="my-2">
+                <p class="mb-0 small" id="avvisoBottleneck">
+                  <span class="badge bg-success">Abbinamento Bilanciato</span> Ottimo equilibrio tra processore e scheda video.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         7. I MIEI COMPONENTI + TASTO COPIA BUILD
+         ===================================================================== -->
+    <section id="miei-componenti" class="py-5">
+      <div class="container">
+        <h2 class="text-center mb-4 fw-bold">I Miei Componenti</h2>
+        <p class="text-center text-muted mb-5">Ecco l'hardware che utilizzo attualmente sul mio computer personale e il link per l'acquisto</p>
+
+        <div class="row justify-content-center">
+          <div class="col-md-10 col-lg-8">
+            <div class="card shadow-sm border-primary mia-scheda">
+              <div class="card-header bg-primary text-white fw-bold d-flex justify-content-between align-items-center">
+                <span>La Mia Build Attuale</span>
+                <button id="btnCopia" class="btn btn-light btn-sm fw-bold" onclick="copiaMiaBuild()">
+                  <i class="bi bi-clipboard me-1"></i> Copia Build
+                </button>
+              </div>
+              
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <span><strong>Processore (CPU):</strong> Intel i7-10700</span>
+                  <a href="https://www.amazon.it/s?k=Intel+i7-10700" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm">Acquista</a>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <span><strong>Scheda Video (GPU):</strong> Nvidia GeForce RTX 2060 SUPER</span>
+                  <a href="https://www.amazon.it/s?k=Nvidia+GeForce+RTX+2060+SUPER" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm">Acquista</a>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <span><strong>Memoria RAM:</strong> HyperX 16 GB DDR4</span>
+                  <a href="https://www.amazon.it/s?k=HyperX+16+GB+DDR4" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm">Acquista</a>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <span><strong>Scheda Madre:</strong> Asus Prime Z490-P</span>
+                  <a href="https://www.amazon.it/s?k=Asus+Prime+Z490-P" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm">Acquista</a>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <span><strong>Archiviazione (SSD):</strong> 2 TB SPCC</span>
+                  <a href="https://www.amazon.it/s?k=SSD+2+TB+SPCC" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm">Acquista</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         8. ERRORI DA NON FARE NELL'ASSEMBLAGGIO
+         ===================================================================== -->
+    <section id="errori" class="py-5 bg-body-tertiary">
+      <div class="container">
+        <h2 class="text-center mb-5 fw-bold">3 Errori da Evitare Quando Assembli un PC</h2>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="alert alert-warning h-100 shadow-sm">
+              <h4 class="alert-heading h6 fw-bold"><i class="bi bi-exclamation-triangle-fill me-2"></i>1. Cavo del monitor nella Scheda Madre</h4>
+              <p class="small mb-0">Collega sempre il cavo HDMI o DisplayPort direttamente alla <strong>Scheda Video (GPU)</strong> in basso, altrimenti userai la grafica integrata del processore.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="alert alert-warning h-100 shadow-sm">
+              <h4 class="alert-heading h6 fw-bold"><i class="bi bi-exclamation-triangle-fill me-2"></i>2. Dimenticare il profilo XMP / EXPO</h4>
+              <p class="small mb-0">Appena avviato il PC, entra nel BIOS e attiva <strong>XMP</strong> (Intel) o <strong>EXPO</strong> (AMD): senza questo passaggio la RAM andrà a una velocità molto più bassa di quella acquistata.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="alert alert-warning h-100 shadow-sm">
+              <h4 class="alert-heading h6 fw-bold"><i class="bi bi-exclamation-triangle-fill me-2"></i>3. Pellicola sotto il dissipatore</h4>
+              <p class="small mb-0">Prima di appoggiare il dissipatore sopra la pasta termica della CPU, controlla sempre di aver rimosso l'adesivo trasparente protettivo dalla base in rame.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         9. MODULO CONTATTI (Con Formspree)
+         ===================================================================== -->
+    <section id="contatti" class="py-5">
+      <div class="container">
+        <h2 class="text-center fw-bold mb-4">Contattami</h2>
+        <div class="row justify-content-center">
+          <div class="col-md-8 col-lg-6">
+            <!-- Sostituisci IL_TUO_CODICE con il tuo endpoint Formspree -->
+            <form action="https://formspree.io/f/IL_TUO_CODICE" method="POST" class="p-4 bg-body rounded shadow-sm border">
+              <div class="mb-3">
+                <label for="nome" class="form-label fw-semibold">Il tuo Nome</label>
+                <input type="text" class="form-control" id="nome" name="nome" placeholder="Es. Alessio" required>
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label fw-semibold">La tua Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="nome@esempio.it" required>
+              </div>
+              <div class="mb-3">
+                <label for="sceltaCombo" class="form-label fw-semibold">Combo di interesse</label>
+                <select class="form-select" id="sceltaCombo" name="combo">
+                  <option selected>Seleziona una combo...</option>
+                  <option value="Combo Studio & 1080p">Combo Studio &amp; 1080p</option>
+                  <option value="Combo Gaming 2K">Combo Gaming 2K</option>
+                  <option value="Combo Top 4K">Combo Top 4K &amp; AI</option>
+                </select>
+              </div>
+              <div class="mb-4">
+                <label for="messaggio" class="form-label fw-semibold">Il tuo Messaggio</label>
+                <textarea class="form-control" id="messaggio" name="message" rows="4" placeholder="Scrivi qui la tua domanda..." required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary w-100 fw-bold py-2">
+                <i class="bi bi-send-fill me-2"></i>Invia Richiesta
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =====================================================================
+       10. FOOTER
+       ===================================================================== -->
+  <footer class="bg-dark text-white-50 py-4 text-center">
+    <div class="container">
+      <p class="mb-0">&copy; 2026 TechLab PC - Creato da Alessio</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- =====================================================================
+       SCRIPT JAVASCRIPT COMPLETO
+       ===================================================================== -->
+  <script>
+    // 1. Attiva tutti i Tooltip di Bootstrap
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    const tooltipList = [...tooltipTriggerList].map(el => new bootstrap.Tooltip(el));
+
+    // 2. Gestione Tema Scuro / Chiaro con salvataggio nel browser (localStorage)
+    const btnTema = document.getElementById('btnTema');
+    const htmlTag = document.documentElement;
+
+    if (localStorage.getItem('temaSalvato') === 'dark') {
+      htmlTag.setAttribute('data-bs-theme', 'dark');
+      btnTema.innerHTML = '<i class="bi bi-sun-fill"></i> Tema Chiaro';
+    }
+
+    btnTema.addEventListener('click', () => {
+      const isDark = htmlTag.getAttribute('data-bs-theme') === 'dark';
+      
+      if (isDark) {
+        htmlTag.setAttribute('data-bs-theme', 'light');
+        btnTema.innerHTML = '<i class="bi bi-moon-stars-fill"></i> Tema Scuro';
+        localStorage.setItem('temaSalvato', 'light');
+      } else {
+        htmlTag.setAttribute('data-bs-theme', 'dark');
+        btnTema.innerHTML = '<i class="bi bi-sun-fill"></i> Tema Chiaro';
+        localStorage.setItem('temaSalvato', 'dark');
+      }
+    });
+
+    // 3. Quiz Interattivo "Che PC fa per te?"
+    function trovaBuildIdeale() {
+      const budget = document.getElementById('quizBudget').value;
+      const uso = document.getElementById('quizUso').value;
+      const boxRisultato = document.getElementById('risultatoQuiz');
+
+      let consiglio = "";
+      let descrizione = "";
+
+      if (budget === "basso" || uso === "1080p") {
+        consiglio = "Combo Studio & 1080p (Ryzen 5 7600 + RTX 4060)";
+        descrizione = "Perfetta per studiare, lavorare e giocare fluidamente in Full HD senza spendere troppo.";
+      } else if (budget === "medio" || uso === "1440p") {
+        consiglio = "Combo Gaming 2K (Ryzen 7 9700X + RTX 5060 Ti)";
+        descrizione = "Il miglior rapporto qualità/prezzo per goderti tutti i giochi moderni in 1440p.";
+      } else {
+        consiglio = "Combo Top 4K & AI (Ryzen 7 9800X3D + RTX 5080)";
+        descrizione = "Potenza massima per il 4K con Ray Tracing attivo e lavori pesanti.";
+      }
+
+      boxRisultato.classList.remove('d-none');
+      boxRisultato.innerHTML = `
+        <h5 class="fw-bold mb-1">Ti consiglio: ${consiglio}</h5>
+        <p class="small mb-2">${descrizione}</p>
+        <a href="#configurazioni" class="btn btn-sm btn-success fw-bold">Vai alle Combo</a>
+      `;
+    }
+
+    // 4. Calcolatore Prezzo, Watt e Bottleneck
+    function calcolaBuild() {
+      const cpuSelect = document.getElementById('selectCpu');
+      const gpuSelect = document.getElementById('selectGpu');
+
+      const prezzoCpu = parseInt(cpuSelect.value);
+      const prezzoGpu = parseInt(gpuSelect.value);
+      const costoBaseAltriPezzi = 350;
+
+      const wattCpu = parseInt(cpuSelect.options[cpuSelect.selectedIndex].getAttribute('data-watt'));
+      const wattGpu = parseInt(gpuSelect.options[gpuSelect.selectedIndex].getAttribute('data-watt'));
+      const wattTotali = wattCpu + wattGpu + 100;
+
+      let psuConsigliato = "550W / 650W";
+      if (wattTotali > 450) psuConsigliato = "750W 80+ Gold";
+      if (wattTotali > 550) psuConsigliato = "850W 80+ Gold";
+
+      document.getElementById('risultatoPrezzo').innerText = (prezzoCpu + prezzoGpu + costoBaseAltriPezzi) + " €";
+      document.getElementById('risultatoWatt').innerText = psuConsigliato;
+
+      const avviso = document.getElementById('avvisoBottleneck');
+      if (prezzoCpu <= 200 && prezzoGpu >= 1000) {
+        avviso.innerHTML = '<span class="badge bg-danger">Attenzione Bottleneck</span> CPU troppo debole per una RTX 5080 (soprattutto in 1080p/1440p).';
+      } else if (prezzoCpu >= 450 && prezzoGpu <= 350) {
+        avviso.innerHTML = '<span class="badge bg-warning text-dark">Build Sbilanciata</span> Stai spendendo più per la CPU che per la GPU: per il gaming conviene investire di più nella scheda video.';
+      } else {
+        avviso.innerHTML = '<span class="badge bg-success">Abbinamento Bilanciato</span> Ottimo equilibrio tra processore e scheda video.';
+      }
+    }
+
+    // 5. Funzione "Copia Build" negli appunti
+    function copiaMiaBuild() {
+      const testoBuild = 
+        "La mia Build PC:\n" +
+        "- CPU: Intel i7-10700\n" +
+        "- GPU: Nvidia GeForce RTX 2060 SUPER\n" +
+        "- RAM: HyperX 16 GB DDR4\n" +
+        "- Scheda Madre: Asus Prime Z490-P\n" +
+        "- SSD: 2 TB SPCC";
+
+      navigator.clipboard.writeText(testoBuild).then(() => {
+        const btn = document.getElementById('btnCopia');
+        btn.innerHTML = '<i class="bi bi-check2"></i> Copiata!';
+        btn.classList.replace('btn-light', 'btn-success');
+        btn.classList.add('text-white');
+
+        setTimeout(() => {
+          btn.innerHTML = '<i class="bi bi-clipboard me-1"></i> Copia Build';
+          btn.classList.replace('btn-success', 'btn-light');
+          btn.classList.remove('text-white');
+        }, 2500);
+      });
+    }
+  </script>
+</body>
+</html>
